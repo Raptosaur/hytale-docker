@@ -34,9 +34,9 @@ services:
     deploy:
       resources:
         limits:
-          memory: 8G
+          memory: 14G
         reservations:
-          memory: 4G
+          memory: 8G
     
     # Enable interactive console (for authentication and server commands)
     stdin_open: true
