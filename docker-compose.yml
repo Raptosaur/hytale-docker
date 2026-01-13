@@ -38,5 +38,20 @@ services:
         reservations:
           memory: 4G
 
+  # Web-based file manager for editing server files
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    container_name: hytale-filebrowser
+    restart: unless-stopped
+    volumes:
+      - server-data:/srv
+      - filebrowser-config:/config
+      - filebrowser-db:/database
+    environment:
+      - PUID=1000
+      - PGID=1000
+
 volumes:
   server-data:
+  filebrowser-config:
+  filebrowser-db:
