@@ -9,7 +9,8 @@ LABEL maintainer="Hytale Server"
 LABEL description="Hytale Dedicated Server"
 
 # Install required packages
-RUN apk add --no-cache bash unzip
+# libgcc is required for Netty QUIC native library (libnetty_quiche)
+RUN apk add --no-cache bash unzip libgcc libstdc++
 
 # Create a non-root user for running the server
 RUN addgroup -S hytale && adduser -S hytale -G hytale
