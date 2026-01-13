@@ -1,0 +1,40 @@
+# Hytale Server Docker Compose Configuration
+# Based on: https://support.hytale.com/hc/en-us/articles/45326769420827-Hytale-Server-Manual
+
+services:
+  hytale-server:
+    build: .
+    container_name: hytale-server
+    restart: unless-stopped
+    
+    # UDP port for QUIC protocol (Hytale uses QUIC, not TCP)
+    ports:
+      - "5520:5520/udp"
+    
+    # JVM and server configuration
+    environment:
+      # Memory settings - adjust based on your server needs
+      # Documentation recommends monitoring RAM usage during gameplay
+      JAVA_OPTS: "-Xms4G -Xmx8G"
+      
+      # Server options (passed to HytaleServer.jar)
+      # Examples:
+      #   --bind 0.0.0.0:5520    - Custom bind address/port
+      #   --disable-sentry       - Disable crash reporting (for development)
+      #   --help                 - Show all available arguments
+      SERVER_OPTS: ""
+    
+    # Persistent volume for all server data
+    # The downloader will save files here on first run
+    volumes:
+      - ./data:/server/data
+    
+    # Resource limits (adjust based on player count and playstyle)
+    # View distance is the main RAM driver - default 384 blocks (~24 Minecraft chunks)
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+        reservations:
+          memory: 4G
+    

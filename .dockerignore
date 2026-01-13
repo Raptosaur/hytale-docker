@@ -1,0 +1,28 @@
+# Docker ignore file for Hytale Server
+
+# Git
+.git
+.gitignore
+
+# Documentation
+*.md
+!QUICKSTART.md
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local data (mounted as volumes)
+data/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
