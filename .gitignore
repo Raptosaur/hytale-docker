@@ -1,1 +1,21 @@
+# Hytale Downloader credentials (sensitive - contains OAuth tokens)
+.hytale-downloader-credentials.json
+**/hytale-downloader-credentials.json
+
+# Server data directory
 data/
+
+# Downloaded archives
+*.zip
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.iml

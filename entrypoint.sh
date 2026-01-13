@@ -2,7 +2,9 @@
 set -e
 
 SERVER_DIR="/server/data"
-SERVER_JAR="$SERVER_DIR/HytaleServer.jar"
+SERVER_JAR="$SERVER_DIR/Server/HytaleServer.jar"
+DOWNLOAD_ZIP="$SERVER_DIR/hytale-server.zip"
+CREDENTIALS_FILE="$SERVER_DIR/.hytale-downloader-credentials.json"
 
 # Check if server files exist
 if [ ! -f "$SERVER_JAR" ]; then
@@ -17,17 +19,30 @@ if [ ! -f "$SERVER_JAR" ]; then
     
     cd "$SERVER_DIR"
     
-    # Run the downloader
-    # The downloader will handle OAuth2 authentication
-    hytale-downloader
+    # Run the downloader with credentials in persistent storage
+    # Use -download-path to specify where to save the zip
+    if [ -f "$CREDENTIALS_FILE" ]; then
+        echo "Using saved credentials..."
+    fi
+    
+    hytale-downloader -download-path "$DOWNLOAD_ZIP"
     
     echo ""
-    echo "Download complete!"
+    echo "Download complete! Extracting files..."
+    echo ""
+    
+    # Extract the zip file
+    unzip -o "$DOWNLOAD_ZIP" -d "$SERVER_DIR"
+    
+    # Clean up the zip file to save space
+    rm -f "$DOWNLOAD_ZIP"
+    
+    echo "Extraction complete!"
     echo ""
 fi
 
-# Change to server directory
-cd "$SERVER_DIR"
+# Change to server directory (where HytaleServer.jar is located)
+cd "$SERVER_DIR/Server"
 
 # Start the Hytale server
 echo "=============================================="

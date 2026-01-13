@@ -20,6 +20,10 @@ Thumbs.db
 # Local data (mounted as volumes)
 data/
 
+# Hytale Downloader credentials (sensitive)
+.hytale-downloader-credentials.json
+**/hytale-downloader-credentials.json
+
 # Logs
 *.log
 
