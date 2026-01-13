@@ -3,17 +3,19 @@
 
 # Adoptium Temurin JRE 25 (eclipse-temurin is the official Adoptium Docker image)
 # https://adoptium.net/
-FROM eclipse-temurin:25-jre-alpine
+# Using Ubuntu-based image (not Alpine) because Netty QUIC requires glibc
+FROM eclipse-temurin:25-jre
 
 LABEL maintainer="Hytale Server"
 LABEL description="Hytale Dedicated Server"
 
 # Install required packages
-# libgcc is required for Netty QUIC native library (libnetty_quiche)
-RUN apk add --no-cache bash unzip libgcc libstdc++
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user for running the server
-RUN addgroup -S hytale && adduser -S hytale -G hytale
+RUN groupadd -r hytale && useradd -r -g hytale hytale
 
 # Create server directory
 WORKDIR /server
