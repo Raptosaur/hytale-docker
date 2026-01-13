@@ -27,7 +27,7 @@ services:
     # Persistent volume for all server data
     # The downloader will save files here on first run
     volumes:
-      - ./data:/server/data
+      - server-data:/server/data
     
     # Resource limits (adjust based on player count and playstyle)
     # View distance is the main RAM driver - default 384 blocks (~24 Minecraft chunks)
@@ -37,4 +37,6 @@ services:
           memory: 8G
         reservations:
           memory: 4G
-    
+
+volumes:
+  server-data:
