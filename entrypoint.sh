@@ -52,4 +52,4 @@ echo "Java Options: $JAVA_OPTS"
 echo "Server Options: $SERVER_OPTS"
 echo ""
 
-exec java $JAVA_OPTS -jar $SERVER_JAR $SERVER_OPTS
+exec java $JAVA_OPTS -jar $SERVER_JAR --assets /server/data/Assets.zip $SERVER_OPTS
